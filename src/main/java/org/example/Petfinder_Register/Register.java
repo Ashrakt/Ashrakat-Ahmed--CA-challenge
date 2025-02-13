@@ -20,6 +20,7 @@ public class Register {
     @Test(dataProvider = "RegisterDataFromCSV")
     public static void Register_fun(String email, String firstname, String lastname, String postal, String cats, String dogs, String password, String message) throws InterruptedException
     {
+
         WebDriver driver ;
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
@@ -41,15 +42,17 @@ public class Register {
         driver.findElement(By.id("emailAddress")).sendKeys(email);
         driver.findElement(By.xpath("//button[contains(@class, 'pds-bg-primary')]")).click();
         Thread.sleep(200);
+        //regestered account
         if(Objects.equals(message, String.valueOf(0))){
             Assert.assertEquals(driver.findElement(By.id("radix-:R77rqjqrkqH1:")).getText(),"We recognize you!");
         }//mail wrong format
          else if (Objects.equals(message, String.valueOf(1))) {
             Assert.assertEquals(driver.findElement(By.xpath("//span[@class='error-text']")).getText(),"Email is missing @");
-        }
+        }//mail wrong format
          else if (Objects.equals(message, String.valueOf(2))) {
             Assert.assertEquals(driver.findElement(By.xpath("//span[@class='error-text']")).getText(),"Email is missing a domain ex: .com");
-        } else if (Objects.equals(message, String.valueOf(3))) {
+        } //mail wrong format
+         else if (Objects.equals(message, String.valueOf(3))) {
             Assert.assertEquals(driver.findElement(By.xpath("//span[@class='error-text']")).getText(),"Please provide an email in this format: name@example.com");
         }
          if(!Objects.equals(message, String.valueOf(0)) &&!Objects.equals(message, String.valueOf(1))&&!Objects.equals(message, String.valueOf(2))&&!Objects.equals(message, String.valueOf(3))) {
@@ -67,6 +70,7 @@ public class Register {
             driver.findElement(By.id("postalCode")).click();
             driver.findElement(By.id("postalCode")).sendKeys(postal);
 
+            //error messages for the required fields
             if (Objects.equals(message, String.valueOf(4))){
                 Thread.sleep(200);
 
@@ -89,9 +93,10 @@ public class Register {
                 //missing cats and dogs
                 Assert.assertFalse(driver.findElement(By.xpath("//button[@type='submit']")).isEnabled());
 
-            } else if (Objects.equals(message, String.valueOf(6))) {//wrong postal code
+            } else if (Objects.equals(message, String.valueOf(6))) {//wrong postal code tests
                 Assert.assertEquals(driver.findElement(By.xpath("//span[@class='error-text']")).getText(), "Must enter valid US ZIP or CA Postal Code. ex: 55555 or A1A 1A1");
             }
+
 
             if (message != String.valueOf(5) && message == String.valueOf(6)) {//password page tests
                 driver.findElement(By.xpath("//select[@name ='dogCount']//option[@value='"+dogs+"']")).click();
@@ -125,9 +130,6 @@ public class Register {
 
 
         }
-
-
-
 
         Thread.sleep(300);
 
