@@ -136,6 +136,6 @@ public class Register {
 
     @DataProvider(name = "RegisterDataFromCSV")
     public Object[][] provideDataFromCSV() throws IOException, CsvException {
-        return CSVHelper_Register.getCSVData("C:/Users/aahmed7/Downloads/New folder/Register.csv"); // Update with the actual file path
+        return CSVHelper_Register.getCSVData("target/classes/org/example/TestData/Register.csv"); // Update with the actual file path
     }
  }

@@ -95,7 +95,7 @@ driver.quit();
 
     @DataProvider(name = "loginDataFromCSV")
     public Object[][] provideDataFromCSV() throws IOException, CsvException {
-        return CSVHelper_login.getCSVData("C:/Users/aahmed7/Downloads/New folder/login.csv"); // Update with the actual file path
+        return CSVHelper_login.getCSVData("target/classes/org/example/TestData/login.csv"); // Update with the actual file path
     }
 
 }
